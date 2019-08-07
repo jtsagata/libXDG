@@ -1,6 +1,37 @@
-#!/bin/sh
+#!/bin/bash
+
+#stops the execution of a script if a command or pipeline has an error
 set -e
-echo Building in debug
-./support/tools/build-debug
-echo Building in release
-./support/tools/build-release
+
+if [ -n "$COMPILER" ]; then
+  echo "COMPILER is defined, use it: CXX=$COMPILER"
+  export CXX=$COMPILER
+fi
+if [ -z "$CXX" ]; then
+  echo "CXX is not set, using clang++ by default"
+  export CXX=clang++-8
+fi
+
+#
+# Debug Build
+#
+mkdir -p artifacts/cmake-build-debug
+pushd artifacts/cmake-build-debug || exit
+cmake -DCMAKE_BUILD_TYPE=Debug \
+      -G "Ninja" ..
+ninja -j "$(nproc)"
+./bin/tests
+popd || exit
+
+#
+# Release Build
+#
+mkdir -p artifacts/cmake-build-release
+pushd artifacts/cmake-build-release || exit
+cmake -DCMAKE_BUILD_TYPE=Debug \
+      -G "Ninja" ..
+ninja -j "$(nproc)"
+./bin/tests
+popd || exit
+
+

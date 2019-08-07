@@ -4,59 +4,25 @@ cache: ccache
 
 stages:
   - build
-  - static analysis
-  - address sanitizer
-  - thread sanitizer
-  - undefined behavior sanitizer
-
+  - analysis
 jobs:
   include:
     - stage: build
       dist: bionic
       env:
         - COMPILER=clang++-8
-        - TYPE=Debug
-      script: ./support/tools/build-debug
-    - stage: build
-      dist: bionic
-      env:
-      - COMPILER=clang++-8
-      - TYPE=Release
-      script: ./support/tools/build-release
+      script: ./support/tools/build
     - stage: build
       dist: bionic
       env:
         - COMPILER=g++
         - TYPE=Debug
-      script: ./support/tools/build-debug
-    - stage: build
-      dist: bionic
-      env:
-        - COMPILER=g++
-        - TYPE=Release
-      script: ./support/tools/build-release
-    - stage: static analysis
+      script: ./support/tools/build
+    - stage: analysis
       dist: bionic
       env:
         - COMPILER=clang++-8
-        - TYPE=Debug
-      script: ./support/tools/tidy
-    - stage: address sanitizer
-      dist: bionic
-      env:
-        - COMPILER=clang++-8
-        - TYPE=Debug
-      script: ./support/tools/build-asan
-    - stage: thread sanitizer
-      dist: bionic
-      env: COMPILER=clang++-8
-      script: ./support/tools/build-tsan
-    - stage: undefined behavior sanitizer
-      dist: bionic
-      env:
-        - COMPILER=clang++-8
-        - TYPE=Debug
-      script: ./support/tools/build-ubsan
+      script: ./support/tools/build-sanitizers
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./support/tools/install-tools; fi

@@ -1,0 +1,66 @@
+#!/bin/bash
+
+#stops the execution of a script if a command or pipeline has an error
+set -e
+
+if [ -n "$COMPILER" ]; then
+  echo "COMPILER is defined, use it: CXX=$COMPILER"
+  export CXX=$COMPILER
+fi
+if [ -z "$CXX" ]; then
+  echo "CXX is not set, using clang++ by default"
+  export CXX=clang++-8
+fi
+
+
+dir="artifacts/cmake-build-debug-addr"
+mkdir -p "${dir}"
+pushd "${dir}" || exit
+cmake -DCMAKE_BUILD_TYPE=Debug \
+      -DSANITIZE_ADDRESS=On \
+      -DSANITIZE_MEMORY=Off \
+      -DSANITIZE_UNDEFINED=Off \
+      -DSANITIZE_THREAD=Off \
+      -G "Ninja" ../..
+ninja -j "$(nproc)"
+./bin/tests
+popd || exit
+
+dir="artifacts/cmake-build-debug-unef"
+mkdir -p "${dir}"
+pushd "${dir}" || exit
+cmake -DCMAKE_BUILD_TYPE=Debug \
+      -DSANITIZE_ADDRESS=Off \
+      -DSANITIZE_MEMORY=Off \
+      -DSANITIZE_UNDEFINED=On\
+      -DSANITIZE_THREAD=Off \
+      -G "Ninja" ../..
+ninja -j "$(nproc)"
+./bin/tests
+popd || exit
+
+dir="artifacts/cmake-build-debug-thread"
+mkdir -p "${dir}"
+pushd "${dir}" || exit
+cmake -DCMAKE_BUILD_TYPE=Debug \
+      -DSANITIZE_ADDRESS=Off \
+      -DSANITIZE_MEMORY=Off \
+      -DSANITIZE_UNDEFINED=Off\
+      -DSANITIZE_THREAD=On \
+      -G "Ninja" ../..
+ninja -j "$(nproc)"
+./bin/tests
+popd || exit
+
+dir="artifacts/cmake-build-debug-mem"
+mkdir -p "${dir}"
+pushd "${dir}" || exit
+cmake -DCMAKE_BUILD_TYPE=Debug \
+      -DSANITIZE_ADDRESS=Off \
+      -DSANITIZE_MEMORY=On \
+      -DSANITIZE_UNDEFINED=Off \
+      -DSANITIZE_THREAD=Off \
+      -G "Ninja" ../..
+ninja -j "$(nproc)"
+./bin/tests
+popd || exit
