@@ -1,0 +1,17 @@
+## Local ignore files
+##    -- START --
+
+/_CPack_Packages
+/ext
+/support/analyze.sh
+
+artifacts/
+*.swp
+*.swo
+tags
+compile_commands.json
+
+
+##    -- DONE --
+## Local ignore files
+
