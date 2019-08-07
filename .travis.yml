@@ -1,5 +1,6 @@
 # Enable C++ support
 language: cpp
+cache: ccache
 
 stages:
   - build
@@ -18,23 +19,33 @@ jobs:
       script: ./support/tools/build-debug
     - stage: build
       dist: bionic
-      env: COMPILER=clang++-8
+      env:
+      - COMPILER=clang++-8
+      - TYPE=Release
       script: ./support/tools/build-release
     - stage: build
       dist: bionic
-      env: COMPILER=g++
+      env:
+        - COMPILER=g++
+        - TYPE=Debug
       script: ./support/tools/build-debug
     - stage: build
       dist: bionic
-      env: COMPILER=g++
+      env:
+        - COMPILER=g++
+        - TYPE=Release
       script: ./support/tools/build-release
     - stage: static analysis
       dist: bionic
-      env: COMPILER=clang++-8
+      env:
+        - COMPILER=clang++-8
+        - TYPE=Debug
       script: ./support/tools/tidy
     - stage: address sanitizer
       dist: bionic
-      env: COMPILER=clang++-8
+      env:
+        - COMPILER=clang++-8
+        - TYPE=Debug
       script: ./support/tools/build-asan
     - stage: thread sanitizer
       dist: bionic
@@ -42,7 +53,9 @@ jobs:
       script: ./support/tools/build-tsan
     - stage: undefined behavior sanitizer
       dist: bionic
-      env: COMPILER=clang++-8
+      env:
+        - COMPILER=clang++-8
+        - TYPE=Debug
       script: ./support/tools/build-ubsan
 
 before_install:
