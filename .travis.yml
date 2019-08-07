@@ -12,80 +12,42 @@ jobs:
   include:
     - stage: static analysis
       dist: bionic
+      env: COMPILER=clang++-8
       script: ./support/tools/tidy
     - stage: build
       os: linux
       sudo: required
       dist: bionic
-      before_install: false
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-bionic-7
-            - ubuntu-toolchain-r-test
-          packages:
-            - clang-7
-            - ninja-build
-      env: COMPILER=clang++-7
+      before_install: true
+      env: COMPILER=clang++-8
       script: ./support/tools/build
     - stage: build
       os: linux
       sudo: required
       dist: bionic
-      before_install: false
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-            - ninja-build
-      env: COMPILER=g++-7
+      before_install: true
+      env: COMPILER=g++-8
       script: ./support/tools/build
     - stage: address sanitizer
       os: linux
       sudo: required
       dist: bionic
-      before_install: false
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-bionic-7
-            - ubuntu-toolchain-r-test
-          packages:
-            - clang-7
-            - ninja-build
-      env: COMPILER=clang++-7
+      before_install: true
+      env: COMPILER=clang++-8
       script: ./support/tools/build-asan
     - stage: thread sanitizer
       os: linux
       sudo: required
       dist: bionic
-      before_install: false
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-bionic-7
-            - ubuntu-toolchain-r-test
-          packages:
-            - clang-7
-            - ninja-build
-      env: COMPILER=clang++-7
+      before_install: true
+      env: COMPILER=clang++-8
       script: ./support/tools/build-tsan
     - stage: undefined behavior sanitizer
       os: linux
       sudo: required
       dist: bionic
-      before_install: false
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-bionic-7
-            - ubuntu-toolchain-r-test
-          packages:
-            - clang-7
-            - ninja-build
-      env: COMPILER=clang++-7
+      before_install: true
+      env: COMPILER=clang++-8
       script: ./support/tools/build-ubsan
 
 before_install:

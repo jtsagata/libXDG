@@ -15,7 +15,7 @@ if [ -n "$COMPILER" ]; then
   export CXX=$COMPILER
 fi
 if [ -z "$CXX" ]; then
-  export CXX=clang++7
+  export CXX=clang++8
 fi
-cmake -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_CXX_CLANG_TIDY=/usr/bin/clang-tidy-7;-checks=*" -G "Ninja" ../..
+cmake -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_CXX_CLANG_TIDY=/usr/bin/clang-tidy-8;-checks=*" -G "Ninja" ../..
 ninja
