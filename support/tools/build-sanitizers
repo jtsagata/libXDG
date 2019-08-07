@@ -23,7 +23,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
       -DSANITIZE_THREAD=Off \
       -G "Ninja" ../..
 ninja -j "$(nproc)"
-./bin/tests
+./bin/tests -d yes
 popd || exit
 
 dir="artifacts/cmake-build-debug-unef"
@@ -36,7 +36,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
       -DSANITIZE_THREAD=Off \
       -G "Ninja" ../..
 ninja -j "$(nproc)"
-./bin/tests
+./bin/tests -d yes
 popd || exit
 
 dir="artifacts/cmake-build-debug-thread"
@@ -62,5 +62,5 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
       -DSANITIZE_THREAD=Off \
       -G "Ninja" ../..
 ninja -j "$(nproc)"
-./bin/tests
+./bin/tests -d yes
 popd || exit
