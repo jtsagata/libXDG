@@ -8,17 +8,17 @@ stages:
 jobs:
   include:
     - stage: build
-      dist: xenial
+      dist: bionic
       env:
         - COMPILER=clang++-8
       script: ./support/tools/build
     - stage: build
-      dist: xenial
+      dist: bionic
       env:
         - COMPILER=g++
       script: ./support/tools/build
     - stage: analysis
-      dist: xenial
+      dist: bionic
       env:
         - COMPILER=clang++-8
       script: ./support/tools/build-sanitizers
