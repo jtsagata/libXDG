@@ -18,5 +18,5 @@ if [ -z "$CXX" ]; then
 fi
 cmake -DCMAKE_BUILD_TYPE=Release ../.. -GNinja
 ninja
-./test/tests
+./bin/tests
 cd ../..

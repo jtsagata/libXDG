@@ -15,10 +15,7 @@ jobs:
       env: COMPILER=clang++-8
       script: ./support/tools/tidy
     - stage: build
-      os: linux
-      sudo: required
       dist: bionic
-      before_install: true
       env: COMPILER=clang++-8
       script: ./support/tools/build
     - stage: build

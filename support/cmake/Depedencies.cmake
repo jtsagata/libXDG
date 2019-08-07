@@ -15,6 +15,7 @@ set(CONNAN_PACKAGES
         )
 
 conan_check(VERSION 1.0.0 REQUIRED)
+set(CONAN_LIBCXX "libstdc++11")
 conan_cmake_run(
         REQUIRES ${CONNAN_PACKAGES}
         BASIC_SETUP CMAKE_TARGETS
