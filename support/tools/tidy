@@ -1,12 +1,21 @@
 #!/bin/sh
-if [ $# -eq 0 ] ; then
-  FILES=`git diff  --name-only --diff-filter=AMR '*.cpp' | xargs`
-  if [ -z "$FILES" ]; then
-    FILES="src/*.cpp test/*.cpp"
-  fi
-else
-  FILES="$1"
+#!/bin/sh
+set -e
+if [ ! -d artifacts ]; then
+  mkdir artifacts
 fi
-echo Checking $FILES
-clang-tidy $FILES -config='' -- -std=c++11 -Ithirdparty/catch/include -Isrc
+cd artifacts
+if [ ! -d Tidy ]; then
+  mkdir Tidy
+fi
+cd Tidy
 
+if [ -n "$COMPILER" ]; then
+  echo "COMPILER is defined, use it: CXX=$COMPILER"
+  export CXX=$COMPILER
+fi
+if [ -z "$CXX" ]; then
+  export CXX=g++
+fi
+cmake -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_CXX_CLANG_TIDY=/usr/bin/clang-tidy-9;-checks=*" ../.. -GNinja
+ninja
