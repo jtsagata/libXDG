@@ -21,17 +21,17 @@ jobs:
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-6.0
+            - llvm-toolchain-bionic-8
             - ubuntu-toolchain-r-test
           packages:
-            - clang-6.0
+            - clang-8
             - ninja-build
-      env: COMPILER=clang++-6.0
-      script: ./build
+      env: COMPILER=clang++-8
+      script: ./support/tools/build
     - stage: build
       os: linux
       sudo: required
-      dist: trusty
+      dist: bionic
       before_install: false
       addons:
         apt:
@@ -41,56 +41,56 @@ jobs:
             - g++-7
             - ninja-build
       env: COMPILER=g++-7
-      script: ./build
+      script: ./support/tools/build
     - stage: address sanitizer
       os: linux
       sudo: required
-      dist: trusty
+      dist: bionic
       before_install: false
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-6.0
+            - llvm-toolchain-bionic-8
             - ubuntu-toolchain-r-test
           packages:
-            - clang-6.0
+            - clang-8
             - ninja-build
-      env: COMPILER=clang++-6.0
+      env: COMPILER=clang++-8
       script: ./support/tools/build-asan
     - stage: thread sanitizer
       os: linux
       sudo: required
-      dist: trusty
+      dist: bionic
       before_install: false
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-6.0
+            - llvm-toolchain-bionic-8
             - ubuntu-toolchain-r-test
           packages:
-            - clang-6.0
+            - clang-8
             - ninja-build
-      env: COMPILER=clang++-6.0
+      env: COMPILER=clang++-8
       script: ./support/tools/build-tsan
     - stage: undefined behavior sanitizer
       os: linux
       sudo: required
-      dist: trusty
+      dist: bionic
       before_install: false
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-6.0
+            - llvm-toolchain-bionic-8
             - ubuntu-toolchain-r-test
           packages:
-            - clang-6.0
+            - clang-8
             - ninja-build
-      env: COMPILER=clang++-6.0
+      env: COMPILER=clang++-8
       script: ./support/tools/build-ubsan
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-add-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main"; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-add-repository "deb http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu trusty main"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-add-repository "deb http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu bionic main"; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y --allow-unauthenticated libllvm6.0 clang-tidy-6.0; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y --allow-unauthenticated libllvm8 clang-tidy-8; fi
