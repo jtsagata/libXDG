@@ -12,7 +12,7 @@ jobs:
       env:
         - COMPILER=clang++-8
       script: ./support/tools/build
-    - stage: xenial
+    - stage: build
       dist: xenial
       env:
         - COMPILER=g++
