@@ -93,4 +93,5 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main"; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-add-repository "deb http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu bionic main"; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y --allow-unauthenticated libllvm8 clang-tidy-8; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y --allow-unauthenticated clang-8 clang-tools-8 libclang-common-8-dev libclang-8-dev libclang1-8 clang-tidy-8 ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install conan; conan user ; fi
