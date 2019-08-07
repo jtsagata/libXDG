@@ -19,4 +19,4 @@ sudo apt-get install -y libboost-filesystem-dev
 wget https://dl.bintray.com/conan/installers/conan-ubuntu-64_1_18_0.deb
 sudo dpkg -i conan-ubuntu-64_1_18_0.deb
 conan user
-conan profile update settings.compiler.libcxx=libstdc++11 default
+#conan profile update settings.compiler.libcxx=libstdc++11 default
