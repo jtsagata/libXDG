@@ -18,7 +18,7 @@ fi
 mkdir -p artifacts/cmake-build-debug
 pushd artifacts/cmake-build-debug || exit
 cmake -DCMAKE_BUILD_TYPE=Debug \
-      -G "Ninja" ..
+      -G "Ninja" ../..
 ninja -j "$(nproc)"
 ./bin/tests
 popd || exit
@@ -29,7 +29,7 @@ popd || exit
 mkdir -p artifacts/cmake-build-release
 pushd artifacts/cmake-build-release || exit
 cmake -DCMAKE_BUILD_TYPE=Debug \
-      -G "Ninja" ..
+      -G "Ninja" ../..
 ninja -j "$(nproc)"
 ./bin/tests
 popd || exit

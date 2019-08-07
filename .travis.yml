@@ -16,7 +16,6 @@ jobs:
       dist: bionic
       env:
         - COMPILER=g++
-        - TYPE=Debug
       script: ./support/tools/build
     - stage: analysis
       dist: bionic
