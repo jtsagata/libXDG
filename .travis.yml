@@ -11,12 +11,12 @@ stages:
 jobs:
   include:
     - stage: static analysis
-      dist: trusty
+      dist: bionic
       script: ./support/tools/tidy
     - stage: build
       os: linux
       sudo: required
-      dist: trusty
+      dist: bionic
       before_install: false
       addons:
         apt:
