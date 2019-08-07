@@ -22,31 +22,19 @@ jobs:
       env: COMPILER=clang++-8
       script: ./support/tools/build
     - stage: build
-      os: linux
-      sudo: required
       dist: bionic
-      before_install: true
-      env: COMPILER=g++-8
+      env: COMPILER=g++
       script: ./support/tools/build
     - stage: address sanitizer
-      os: linux
-      sudo: required
       dist: bionic
-      before_install: true
       env: COMPILER=clang++-8
       script: ./support/tools/build-asan
     - stage: thread sanitizer
-      os: linux
-      sudo: required
       dist: bionic
-      before_install: true
       env: COMPILER=clang++-8
       script: ./support/tools/build-tsan
     - stage: undefined behavior sanitizer
-      os: linux
-      sudo: required
       dist: bionic
-      before_install: true
       env: COMPILER=clang++-8
       script: ./support/tools/build-ubsan
 
