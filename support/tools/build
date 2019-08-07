@@ -20,7 +20,7 @@ pushd artifacts/cmake-build-debug || exit
 cmake -DCMAKE_BUILD_TYPE=Debug \
       -G "Ninja" ../..
 ninja -j "$(nproc)"
-./bin/tests
+./bin/tests  -d yes
 popd || exit
 
 #
@@ -31,7 +31,7 @@ pushd artifacts/cmake-build-release || exit
 cmake -DCMAKE_BUILD_TYPE=Debug \
       -G "Ninja" ../..
 ninja -j "$(nproc)"
-./bin/tests
+./bin/tests  -d yes
 popd || exit
 
 

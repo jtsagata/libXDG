@@ -49,18 +49,18 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
       -DSANITIZE_THREAD=On \
       -G "Ninja" ../..
 ninja -j "$(nproc)"
-./bin/tests
+./bin/tests  -d yes
 popd || exit
 
-dir="artifacts/cmake-build-debug-mem"
-mkdir -p "${dir}"
-pushd "${dir}" || exit
-cmake -DCMAKE_BUILD_TYPE=Debug \
-      -DSANITIZE_ADDRESS=Off \
-      -DSANITIZE_MEMORY=On \
-      -DSANITIZE_UNDEFINED=Off \
-      -DSANITIZE_THREAD=Off \
-      -G "Ninja" ../..
-ninja -j "$(nproc)"
-./bin/tests -d yes
-popd || exit
+#dir="artifacts/cmake-build-debug-mem"
+#mkdir -p "${dir}"
+#pushd "${dir}" || exit
+#cmake -DCMAKE_BUILD_TYPE=Debug \
+#      -DSANITIZE_ADDRESS=Off \
+#      -DSANITIZE_MEMORY=On \
+#      -DSANITIZE_UNDEFINED=Off \
+#      -DSANITIZE_THREAD=Off \
+#      -G "Ninja" ../..
+#ninja -j "$(nproc)"
+#./bin/tests -d yes
+#popd || exit
