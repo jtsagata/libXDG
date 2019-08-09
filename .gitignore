@@ -11,6 +11,8 @@ artifacts/
 tags
 compile_commands.json
 
+/packages
+/debian/libxdg/
 
 ##    -- DONE --
 ## Local ignore files

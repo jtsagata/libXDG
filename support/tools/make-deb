@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# May faild in submodules
+git_top=$(git rev-parse --show-toplevel)
+
+cd "${git_top}" || exit
+export DEBFULLNAME="Ioannis Tsagkatakis"
+export DEBEMAIL="jtsagata@gmail.com"
+
+#dch -i
+
+dpkg-buildpackage -b
+rm -r "${git_top}"/obj-*-gnu/
+mkdir -p packages
+mv ../libxdg*.* packages
+lintian packages/*.deb

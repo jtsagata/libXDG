@@ -1,0 +1,13 @@
+Source: libxdg
+Section: shells
+Priority: optional
+Maintainer: Giannis Tsagkatakis <jtsagata@gmail.com>
+Build-Depends: build-essential, debhelper (>= 9)
+Homepage: https://www.github.com/jtsagata/cctheme
+
+
+Package: libxdg
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description:Theme generator utility for cctheme
+  Generate themes from json files
