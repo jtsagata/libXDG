@@ -1,3 +1,5 @@
+configure_file(config.h.in config.h  @ONLY)
+
 set(SOURCES
   "hello.cpp"
   "hello.h"
@@ -5,15 +7,22 @@ set(SOURCES
 
 find_package(Sanitizers)
 
-set(LIB_NAME ${PROJECT_NAME}_lib)
+add_library(xdglib STATIC ${SOURCES})
+add_sanitizers(xdglib)
+set_target_properties(xdglib PROPERTIES OUTPUT_NAME ${PROJECT_NAME})
+target_include_directories(xdglib PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(xdglib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+set_target_properties(xdglib PROPERTIES PUBLIC_HEADER "hello.h")
 
-add_library(${LIB_NAME} STATIC ${SOURCES})
-add_sanitizers(${LIB_NAME})
-set_target_properties(${LIB_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME})
+install(TARGETS xdglib
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/libxdg
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-target_include_directories(${LIB_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_executable(${PROJECT_NAME} main.cpp)
-add_sanitizers(${PROJECT_NAME})
-target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB_NAME})
-
+add_executable(xdg_demo xdg_demo.cpp)
+add_sanitizers(xdg_demo)
+target_link_libraries(xdg_demo PRIVATE xdglib CONAN_PKG::fmt Boost::filesystem)
+install(TARGETS xdg_demo
+        RUNTIME DESTINATION bin
+        )

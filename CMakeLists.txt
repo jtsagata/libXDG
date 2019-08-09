@@ -1,12 +1,15 @@
 cmake_minimum_required(VERSION 3.9)
-project("cctheme-generator"
+project("libXDG"
         VERSION 0.0.1
         DESCRIPTION "XDG_BASE utilities"
         HOMEPAGE_URL "https://github.com/jtsagata/libXDG"
         LANGUAGES CXX
         )
 
-project(libXDG CXX)
+set(PROJECT_BUGS ${PROJECT_HOMEPAGE_URL}/issues)
+set(TRANSLATION_DOMAIN xdg)
+
+
 set(PROJECT_BUGS ${PROJECT_HOMEPAGE_URL}/issues)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/support/cmake)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/support/cmake/sanitizers")
@@ -45,3 +48,4 @@ endif()
 
 add_subdirectory(src)
 add_subdirectory(test)
+add_subdirectory(translations)

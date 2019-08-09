@@ -7,8 +7,8 @@ find_package(Sanitizers)
 set(LIB_NAME ${PROJECT_NAME}_lib)
 set(TEST_NAME tests)
 
-add_executable(${TEST_NAME} test_main.cpp ${SOURCES})
-add_sanitizers(${TEST_NAME})
+add_executable(xdg_tests test_main.cpp ${SOURCES})
+add_sanitizers(xdg_tests)
 
-target_link_libraries(${TEST_NAME} PRIVATE ${LIB_NAME} CONAN_PKG::Catch2)
-target_compile_definitions(${TEST_NAME} PRIVATE CATCH_CONFIG_CONSOLE_WIDTH=80)
+target_link_libraries(xdg_tests PRIVATE xdglib CONAN_PKG::Catch2)
+target_compile_definitions(xdg_tests PRIVATE CATCH_CONFIG_CONSOLE_WIDTH=80)
