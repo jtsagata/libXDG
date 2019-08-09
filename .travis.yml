@@ -1,27 +1,23 @@
-# Enable C++ support
 language: cpp
-cache: ccache
+sudo: false
 
-stages:
-  - build
-  - analysis
-jobs:
+dist:
+  - trusty
+  - bionic
+
+matrix:
   include:
-    - stage: build
-      dist: bionic
-      env:
-        - COMPILER=clang++-8
-      script: ./support/tools/build
-    - stage: build
-      dist: bionic
-      env:
-        - COMPILER=g++
-      script: ./support/tools/build
-    - stage: analysis
-      dist: bionic
-      env:
-        - COMPILER=clang++-8
-      script: ./support/tools/build-sanitizers
-
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./support/tools/install-tools; fi
+    - os: linux
+      env: CONFIG=Release TOOLCHAIN=clang-libstdcxx
+    - os: linux
+      env: CONFIG=Debug TOOLCHAIN=clang-libstdcxx
+    - os: linux
+      env: CONFIG=Release TOOLCHAIN=gcc
+    - os: linux
+      env: CONFIG=Debug TOOLCHAIN=gcc
+    - os: linux
+      env: CONFIG=Debug TOOLCHAIN=Debug
+    - os: linux
+      env: CONFIG=Debug TOOLCHAIN=sanitize-address
+    - os: linux
+      env: CONFIG=Debug TOOLCHAIN=sanitize-leak
